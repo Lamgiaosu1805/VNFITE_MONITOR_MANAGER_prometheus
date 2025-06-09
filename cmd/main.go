@@ -7,8 +7,6 @@ import (
 
 	"sys-monitor-go/monitor"
 
-	"math"
-
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
@@ -62,7 +60,7 @@ func main() {
 		memGauge.Set(stats.Memory * 100) // nhân 100 để ra %
 		diskUsedGauge.Set(float64(stats.DiskUsed))
 		diskTotalGauge.Set(float64(stats.DiskTotal))
-		diskUsedPercentGauge.Set(math.Round(stats.DiskUsedPercent*100*100) / 100)
+		diskUsedPercentGauge.Set(stats.DiskUsedPercent * 100)
 
 		log.Printf("CPU: %.2f%% | RAM: %.2f%% | Disk: %s / %s (%.2f%%)\n",
 			stats.CPU*100,
