@@ -56,14 +56,15 @@ func main() {
 	for range ticker.C {
 		stats := monitor.GetStats()
 
-		cpuGauge.Set(stats.CPU)
-		memGauge.Set(stats.Memory)
+		cpuGauge.Set(stats.CPU * 100)    // nhân 100 để ra %
+		memGauge.Set(stats.Memory * 100) // nhân 100 để ra %
 		diskUsedGauge.Set(float64(stats.DiskUsed))
 		diskTotalGauge.Set(float64(stats.DiskTotal))
+		diskUsedPercentGauge.Set(stats.DiskUsedPercent)
 
 		log.Printf("CPU: %.2f%% | RAM: %.2f%% | Disk: %s / %s (%.2f%%)\n",
-			stats.CPU,
-			stats.Memory,
+			stats.CPU*100,
+			stats.Memory*100,
 			monitor.FormatBytes(stats.DiskUsed),
 			monitor.FormatBytes(stats.DiskTotal),
 			stats.DiskUsedPercent,
