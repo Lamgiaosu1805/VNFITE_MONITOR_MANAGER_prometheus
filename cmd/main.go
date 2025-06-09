@@ -40,18 +40,17 @@ func init() {
 }
 
 func main() {
-	// Mở cổng /metrics cho Prometheus scrape
+	// Start HTTP server expose /metrics cho Prometheus scrape
 	http.Handle("/metrics", promhttp.Handler())
-
 	go func() {
-		log.Println("🚀 Prometheus metrics server started at http://localhost:2112/metrics")
+		log.Println("Starting Prometheus metrics server at :2112/metrics")
 		if err := http.ListenAndServe(":2112", nil); err != nil {
-			log.Fatalf("❌ Failed to start metrics server: %v", err)
+			log.Fatal(err)
 		}
 	}()
 
-	// Vòng lặp cập nhật metric mỗi 1 giây
-	ticker := time.NewTicker(1 * time.Second)
+	// Thay đổi ticker thành 5 giây
+	ticker := time.NewTicker(5 * time.Second)
 	defer ticker.Stop()
 
 	for range ticker.C {
@@ -61,9 +60,8 @@ func main() {
 		memGauge.Set(stats.Memory)
 		diskUsedGauge.Set(float64(stats.DiskUsed))
 		diskTotalGauge.Set(float64(stats.DiskTotal))
-		diskUsedPercentGauge.Set(stats.DiskUsedPercent)
 
-		log.Printf("✅ CPU: %.2f%% | RAM: %.2f%% | Disk: %s / %s (%.2f%%)",
+		log.Printf("CPU: %.2f%% | RAM: %.2f%% | Disk: %s / %s (%.2f%%)\n",
 			stats.CPU,
 			stats.Memory,
 			monitor.FormatBytes(stats.DiskUsed),
