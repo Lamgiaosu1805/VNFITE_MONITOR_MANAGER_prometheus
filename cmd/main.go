@@ -49,8 +49,8 @@ func main() {
 		}
 	}()
 
-	// Thay đổi ticker thành 5 giây
-	ticker := time.NewTicker(5 * time.Second)
+	// Thay đổi ticker thành 1 giây
+	ticker := time.NewTicker(1 * time.Second)
 	defer ticker.Stop()
 
 	for range ticker.C {
