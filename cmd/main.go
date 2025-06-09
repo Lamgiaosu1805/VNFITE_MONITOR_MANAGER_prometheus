@@ -49,18 +49,18 @@ func main() {
 		}
 	}()
 
-	// Thay đổi ticker thành 1 giây
-	ticker := time.NewTicker(1 * time.Second)
+	// Thay đổi ticker thành 5 giây
+	ticker := time.NewTicker(5 * time.Second)
 	defer ticker.Stop()
 
 	for range ticker.C {
 		stats := monitor.GetStats()
 
-		cpuGauge.Set(stats.CPU * 100) // nhân 100 để ra %
-		memGauge.Set(stats.Memory)    // nhân 100 để ra %
+		cpuGauge.Set(stats.CPU * 100)    // nhân 100 để ra %
+		memGauge.Set(stats.Memory * 100) // nhân 100 để ra %
 		diskUsedGauge.Set(float64(stats.DiskUsed))
 		diskTotalGauge.Set(float64(stats.DiskTotal))
-		diskUsedPercentGauge.Set(stats.DiskUsedPercent * 100)
+		diskUsedPercentGauge.Set(stats.DiskUsedPercent)
 
 		log.Printf("CPU: %.2f%% | RAM: %.2f%% | Disk: %s / %s (%.2f%%)\n",
 			stats.CPU*100,
