@@ -56,8 +56,8 @@ func main() {
 	for range ticker.C {
 		stats := monitor.GetStats()
 
-		cpuGauge.Set(stats.CPU * 100)    // nhân 100 để ra %
-		memGauge.Set(stats.Memory * 100) // nhân 100 để ra %
+		cpuGauge.Set(stats.CPU * 100) // nhân 100 để ra %
+		memGauge.Set(stats.Memory)    // nhân 100 để ra %
 		diskUsedGauge.Set(float64(stats.DiskUsed))
 		diskTotalGauge.Set(float64(stats.DiskTotal))
 		diskUsedPercentGauge.Set(stats.DiskUsedPercent)
