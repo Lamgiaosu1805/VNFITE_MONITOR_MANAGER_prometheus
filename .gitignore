@@ -1,0 +1,19 @@
+# Bỏ qua thư mục binary
+/bin/
+/build/
+
+# Bỏ qua thư mục mod cache
+/pkg/mod/
+
+# Bỏ qua file executable
+*.exe
+*.exe~
+
+# Bỏ qua file build của macOS
+.DS_Store
+
+# Bỏ qua log file
+*.log
+
+# Bỏ qua thư mục vendor nếu bạn dùng
+/vendor/
