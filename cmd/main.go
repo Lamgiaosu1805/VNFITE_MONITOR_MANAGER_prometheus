@@ -60,7 +60,7 @@ func main() {
 		memGauge.Set(stats.Memory * 100) // nhân 100 để ra %
 		diskUsedGauge.Set(float64(stats.DiskUsed))
 		diskTotalGauge.Set(float64(stats.DiskTotal))
-		diskUsedPercentGauge.Set(stats.DiskUsedPercent)
+		diskUsedPercentGauge.Set(stats.DiskUsedPercent * 100)
 
 		log.Printf("CPU: %.2f%% | RAM: %.2f%% | Disk: %s / %s (%.2f%%)\n",
 			stats.CPU*100,
